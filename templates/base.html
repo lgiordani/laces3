@@ -42,8 +42,16 @@
     {% set LACES_SERIES = False %}
 {% endif %}
 
+{% if LACES_SIDEBAR is not defined %}
+    {% set LACES_SIDEBAR = False %}
+{% endif %}
+
 {% if LACES_BREADCRUMBS is not defined %}
     {% set LACES_BREADCRUMBS = False %}
+{% endif %}
+
+{% if LACES_DISQUS is not defined %}
+    {% set LACES_DISQUS = False %}
 {% endif %}
 
 <!DOCTYPE html>
@@ -137,13 +145,18 @@
     {% endif %}
     <!-- Custom CSS END -->
     
+    <!-- Docutils CSS START -->
+    {% if LACES_DOCUTIL_CSS %}
+        <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/html4css1.css" rel="stylesheet">
+    {% endif %}
+    <!-- Docutils CSS START -->
+    
+
 
     {% if 'tipue_search' in PLUGINS %}
     <link href="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch.css" rel="stylesheet">
     {% endif %}
-    {% if DOCUTIL_CSS %}
-        <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/html4css1.css" rel="stylesheet">
-    {% endif %}
+    
     {% if TYPOGRIFY %}
         <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/typogrify.css" rel="stylesheet">
     {% endif %}

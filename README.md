@@ -219,11 +219,11 @@ You may configure the text of the related post secion header setting the `LACES_
 Configuration variable: `LACES_SERIES`
 Configuration keys: `header`, `display_on_sidebar`, `display_on_footer`
 
-This theme supports the [Series plugin](https://github.com/getpelican/pelican-plugins/tree/master/series).
+This theme supports the [series plugin](https://github.com/getpelican/pelican-plugins/tree/master/series).
 
 If the plugin is enabled you may define the `display_on_footer` configuration key to display the links to the previous and next articles in the series in the footer of a post. You may customize the header of this list setting the `HEADER` configuration key, which can also include the `index` and `name` variables. The first is the index of the current article in the series (starting from 1) and the second is the name of the series. The default string is `Part %(index)s of the %(name)s series`.
 
-You may display on the sidebar the link to the previous and next article in the series setting the `display_on_sidebar` configuration key to `True`.
+You may display on the sidebar the link to the previous and next article in the series adding the `series` field to the `LACES_SIDEBAR` variable (see below).
 
 You may display information on the series just under the article title setting the `series` field in `LACES_ARTICLE_INFO_PAGE`.
 
@@ -288,3 +288,89 @@ A banner image can be added to the theme, displayed with an header and an option
 
 If the `all_pages` flag is `True` the banner will be shown on every page of the blog, otherwise just on the pages containing the `banner` block (currently only `index.html`).
 
+### Sidebar
+
+Configuration variables: `LACES_SIDEBAR`
+Configuration keys: `fields`, `recent`, `recent_num`
+Available fields: `tags`, `tags_inline`, `categories`, `series`, `social`
+
+If you want to show a sidebar just initialize the `LACES_SIDEBAR` variable. Its `fields` key may contain the following values:
+
+* `tags` - Shows the tag cloud provided by the [tag_cloud](https://github.com/getpelican/pelican-plugins/tree/master/tag_cloud) plugin, which shall be enabled.
+* `tags_inline` - This shows tags inline more as a proper tag cloud. You have to enable the `tags` field too.
+* `categories` - Shows the site categories
+* `series` - Shows the link to the next and the previous article in the same series (requires the [series plugin](https://github.com/getpelican/pelican-plugins/tree/master/series))
+* `social` - Shows your social links using the Pelican `SOCIAL` variable. See below for a configuration example
+
+The `recent`, if set, shows a list of recent posts. The `recent_num` controls the amount of posts shown, if not set defaults to 5.
+
+An example of social configuration is this (taken from pelican-bootstrap3)
+
+```
+SOCIAL = (('twitter', 'http://twitter.com/DaanDebie'),
+          ('linkedin', 'http://www.linkedin.com/in/danieldebie'),
+          ('github', 'http://github.com/DandyDev'),
+          ('stackoverflow', 'http://stackoverflow.com/users/872397/dandydev', 'stack-overflow')
+```
+
+The first string in each item will be used for both the name as shown in the sidebar, and to determine the [FontAwesome](http://fontawesome.io/icons/)
+icon to show. You can provide an alternative icon string as the third string (as shown in the last item with the `'stack-overflow'` icon name).
+
+A complete example of sidebar configuration is the following
+
+``` python
+LACES_SIDEBAR = {
+    'fields': ['tags', 'tags_inline', 'series', 'social'],
+    'recent': True,
+    'recent_num': 4
+}
+```
+
+### reStructuredText styles
+
+Configuration variables: `LACES_DOCUTILS_CSS`
+
+If you're using reStructuredText for writing articles and pages, you can include the extra CSS styles that are used by the `docutils`-generated HTML by setting `LACES_DOCUTIL_CSS` to True. This can be done as a global setting or  setting it in the metadata of a specific article or page.
+
+### Disqus comments
+
+Configuration variables: `LACES_DISQUS`
+Configuration keys: `no_id`, `recent`, `recent_num`
+
+Disqus comments are enabled through the Pelican variable `DISQUS_SITENAME`.
+
+This theme sets identifiers for each article's comment threads. If you are switching from a theme that doesn't (such as the Pelican built-in default) this will result in existing comments getting lost. To prevent this, set the `no_id` key to `True`.
+
+Set the `id_prefix_slug` key to `True` if you have configured your article URLs such that the slug alone will likely not be unique. Ignored if `no_id` is `True`.
+
+You can also enable Disqus comments for pages. This is a per-page setting you can control by adding a field `comments` to you pages' metadata. Set it to `enabled` to enable comments for that page. Comment-threads for pages will have an id that is prefixed by `page-`.
+
+To show Disqus comment counts on the index page, set the `display_counts` key to `True`.
+
+### Content license
+
+Configuration variables: `LACES_LICENSE`
+Configuration keys: `cc_short`
+
+You can declare a license for the content of your site. It will appear in the site's footer.
+
+
+
+
+
+You can optionally declare a [Creative Commons license](http://creativecommons.org)  To enable, use one of the following two ways for configuration.
+
+* To choose the license by name, set `CC_LICENSE` to the common abbreviated name of the license: `"CC-BY"` (require attribution), `"CC-BY-SA"` (require ShareAlike), `"CC-BY-ND"` (NoDerivatives) , `"CC-BY-NC"` (require attribution, no commercial reuse), `"CC-BY-NC-SA"` (require ShareAlike, no commercial reuse), or `"CC-BY-NC-ND"` (NoDerivatives, no commercial reuse).
+* Alternatively, choose the licence by features:
+    * `CC_LICENSE_DERIVATIVES` - `"yes"` if permitted, `"no"` if not permitted, and `"ShareAlike"` if derivatives must be shared under the same terms.
+    * `CC_LICENSE_COMMERCIAL` - `"yes"` if commercial reuse is permitted, and `"no"` otherwise.
+* Optionally, you can include attribution markup in the license mark by setting `CC_ATTR_MARKUP` to _True_.
+
+The license choice mirrors the [Creative Commons License Chooser](http://creativecommons.org/choose/). Source for the macro that renders the mark is at http://github.com/hlapp/cc-tools.
+
+Alternatively, if you want to use another license type, you can instead use the `CUSTOM_LICENSE` property to set a license string that will be showed at the bottom of every page.
+Raw HTML is allowed.
+As `CC_*` variables take precedence, be sure to avoid `CC_*` variables when using `CUSTOM_LICENSE`.
+
+For example, if you want to use the WTFPL license, you can set:
+`CUSTOM_LICENSE='Unless otherwise stated, all articles are published under the <a href="http://www.wtfpl.net/about/">WTFPL</a> license.'`
