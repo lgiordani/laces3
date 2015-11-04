@@ -1,0 +1,17 @@
+<style>
+    #banner{
+        background-image:url("{{ SITEURL}}/{{ LACES_BANNER.file }}");
+    }
+</style>
+
+<div id="banner">
+    <div class="container{% if LACES_BOOTSTRAP_FLUID %}-fluid{% endif %}">
+        <div class="copy">
+            <h1>{{ LACES_BANNER.header|default(SITENAME) }}</h1>
+
+            {% if LACES_BANNER.subtitle %}
+                <p class="intro">{{ LACES_BANNER.subtitle }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>

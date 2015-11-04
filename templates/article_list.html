@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if articles %}
+        {% for article in (articles_page.object_list if articles_page else articles) %}
+            <article>
+                <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+                {% if LACES_ARTICLE_INFO_LIST %}
+                    <div class="well well-sm">
+                        {% with _laces_in_article_list=True %}
+                        {% include "includes/article_info.html" %}
+                        {% endwith %}
+                    </div>
+                {% endif %}
+                <div class="summary">{{ article.summary }}
+                    {% include 'includes/comment_count.html' %}
+                    <a class="btn btn-default btn-xs" href="{{ SITEURL }}/{{ article.url }}">more ...</a>
+                </div>
+            </article>
+            <hr/>
+        {% endfor %}
+    {% endif %}
+
+    {% include 'includes/pagination.html' %}
+{% endblock content %}
