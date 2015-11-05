@@ -1,0 +1,24 @@
+<hr />
+<!-- Shariff Button BEGIN -->
+<div class="shariff"
+    {% if LACES_SHARIFF.backend_url %}
+    data-backend-url="{{ LACES_SHARIFF.backend_url }}"
+    {% endif %}
+    {% if LACES_SHARIFF.lang %}
+    data-lang="{{ LACES_SHARIFF.lang }}"
+    {% endif %}
+    {% if LACES_SHARIFF.orientation|default('vertical') %}
+    data-orientation="{{ LACES_SHARIFF.orientation }}"
+    {% endif %}
+    {% if LACES_SHARIFF.services %}
+    data-services = "{{ LACES_SHARIFF.services }}"
+    {% endif %}
+    {% if LACES_SHARIFF.theme %}
+    data-theme="{{ LACES_SHARIFF.theme }}"
+    {% endif %}
+    {% if LACES_SHARIFF.twitter_via|default(false) %}
+    data-twitter-via="{{ TWITTER_USERNAME }}"
+    {% endif %}
+    data-url="{{ SITEURL }}/{{ article.url }}">
+</div>
+<!-- Shariff Button END -->

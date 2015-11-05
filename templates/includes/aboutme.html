@@ -1,0 +1,12 @@
+<div id="aboutme">
+    {% if LACES_ABOUT_ME.avatar %}
+        <p>
+            <img width="100%" class="img-thumbnail" src="{{ LACES_ABOUT_ME.avatar }}"/>
+        </p>
+    {% endif %}
+    <p>
+    	{% set default_header = 'About ' + AUTHOR %}
+        <strong>{{ LACES_ABOUT_ME.header|default(default_header) }}</strong><br/>
+        {{ LACES_ABOUT_ME.text }}
+    </p>
+</div>
