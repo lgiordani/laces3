@@ -1,5 +1,7 @@
 # Laces3
 
+Version: 1.0
+
 This is a Bootstrap 3 theme for Pelican. It is an enhancement of the amazing [pelican-bootstrap3](https://github.com/DandyDev/pelican-bootstrap3) by [Daan Debie](https://github.com/DandyDev).
 
 I started to pull changes submitted by other developers into my own fork of pelican-bootstrap3 and ended up with a complete mess, so I decided to try and rebuild the original theme with the changes I had in mind.
