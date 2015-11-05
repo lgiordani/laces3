@@ -25,7 +25,7 @@ git clone https://github.com/lgiordani/Laces3.git
 Open the `pelicanconf.py` file in the same directory and change the `THEME` variable to `pelican-bootstrap3`
 
 ``` python
-THEME = "pelican-bootstrap3"
+THEME = "laces3"
 ```
 
 then add the With Statement Jinja2 extension into the same file
