@@ -309,7 +309,7 @@ If the `all_pages` flag is `True` the banner will be shown on every page of the 
 
 Configuration variables: `LACES_SIDEBAR`
 Configuration keys: `fields`, `recent`, `recent_num`
-Available fields: `tags`, `tags_inline`, `categories`, `series`, `social`
+Available fields: `tags`, `tags_inline`, `categories`, `series`, `social`, `images`, `feeds`
 
 If you want to show a sidebar just initialize the `LACES_SIDEBAR` variable. Its `fields` key may contain the following values:
 
@@ -319,6 +319,7 @@ If you want to show a sidebar just initialize the `LACES_SIDEBAR` variable. Its 
 * `series` - Shows the link to the next and the previous article in the same series (requires the [series plugin](https://github.com/getpelican/pelican-plugins/tree/master/series))
 * `social` - Shows your social links using the Pelican `SOCIAL` variable. See below for a configuration example
 * `images` - A list of images which will be shown in the sidebar (e.g. `images: ['/path/to/image1.png', '/path/to/image2.png']`)
+* `feeds` - Shows feed links according to the `FEED_ALL_ATOM`, `TAG_FEED_ATOM` and `CATEGORY_FEED_ATOM` Pelican variables.
 
 The `recent`, if set, shows a list of recent posts. The `recent_num` controls the amount of posts shown, if not set defaults to 5.
 
