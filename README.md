@@ -478,7 +478,7 @@ Configuration keys: `text`, `more_info_text`, `more_info_url`, `dismiss`, `dismi
 
 Since 2011 websites based in the EU are required to ask visitors for consent to use web cookies. This is especially relevant if you are using web analytics like Piwik or Google Analytics. This feature uses [Cookie Consent](https://github.com/silktide/cookieconsent2) by [Silktide](https://github.com/silktide).
 
-If deafult values are good for you, you may enable the popup just setting
+If default values are good for you, you may enable the popup just setting
 
 ``` python
 LACES_COOKIECONSENT = True
