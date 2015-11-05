@@ -1,6 +1,6 @@
 # Laces3
 
-Version: 1.0
+Version: 1.1
 
 This is a Bootstrap 3 theme for Pelican. It is an enhancement of the amazing [pelican-bootstrap3](https://github.com/DandyDev/pelican-bootstrap3) by [Daan Debie](https://github.com/DandyDev).
 
@@ -25,7 +25,7 @@ git clone https://github.com/lgiordani/Laces3.git
 Open the `pelicanconf.py` file in the same directory and change the `THEME` variable to `pelican-bootstrap3`
 
 ``` python
-THEME = "pelican-bootstrap3"
+THEME = "laces3"
 ```
 
 then add the With Statement Jinja2 extension into the same file
@@ -309,7 +309,7 @@ If the `all_pages` flag is `True` the banner will be shown on every page of the 
 
 Configuration variables: `LACES_SIDEBAR`
 Configuration keys: `fields`, `recent`, `recent_num`
-Available fields: `tags`, `tags_inline`, `categories`, `series`, `social`
+Available fields: `tags`, `tags_inline`, `categories`, `series`, `social`, `images`, `feeds`
 
 If you want to show a sidebar just initialize the `LACES_SIDEBAR` variable. Its `fields` key may contain the following values:
 
@@ -319,6 +319,7 @@ If you want to show a sidebar just initialize the `LACES_SIDEBAR` variable. Its 
 * `series` - Shows the link to the next and the previous article in the same series (requires the [series plugin](https://github.com/getpelican/pelican-plugins/tree/master/series))
 * `social` - Shows your social links using the Pelican `SOCIAL` variable. See below for a configuration example
 * `images` - A list of images which will be shown in the sidebar (e.g. `images: ['/path/to/image1.png', '/path/to/image2.png']`)
+* `feeds` - Shows feed links according to the `FEED_ALL_ATOM`, `TAG_FEED_ATOM` and `CATEGORY_FEED_ATOM` Pelican variables.
 
 The `recent`, if set, shows a list of recent posts. The `recent_num` controls the amount of posts shown, if not set defaults to 5.
 
@@ -477,7 +478,7 @@ Configuration keys: `text`, `more_info_text`, `more_info_url`, `dismiss`, `dismi
 
 Since 2011 websites based in the EU are required to ask visitors for consent to use web cookies. This is especially relevant if you are using web analytics like Piwik or Google Analytics. This feature uses [Cookie Consent](https://github.com/silktide/cookieconsent2) by [Silktide](https://github.com/silktide).
 
-If deafult values are good for you, you may enable the popup just setting
+If default values are good for you, you may enable the popup just setting
 
 ``` python
 LACES_COOKIECONSENT = True
