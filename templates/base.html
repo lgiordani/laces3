@@ -46,19 +46,44 @@
     {% set LACES_SIDEBAR = False %}
 {% endif %}
 
+{% if LACES_NAVBAR_BRAND is not defined %}
+    {% set LACES_NAVBAR_BRAND = False %}
+{% endif %}
+
 {% if LACES_BREADCRUMBS is not defined %}
     {% set LACES_BREADCRUMBS = False %}
+{% endif %}
+
+{% if LACES_BANNER is not defined %}
+    {% set LACES_BANNER = False %}
 {% endif %}
 
 {% if LACES_DISQUS is not defined %}
     {% set LACES_DISQUS = False %}
 {% endif %}
 
-<!DOCTYPE html>
-{% if USE_OPEN_GRAPH is not defined %}
-    {% set USE_OPEN_GRAPH = True %}
+{% if LACES_LICENSE is not defined %}
+    {% set LACES_LICENSE = False %}
 {% endif %}
-<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}"{% if USE_OPEN_GRAPH %} prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml"{% endif %}>
+
+{% if LACES_GITHUB is not defined %}
+    {% set LACES_GITHUB = False %}
+{% endif %}
+
+{% if LACES_OPEN_GRAPH is not defined %}
+    {% set LACES_OPEN_GRAPH = True %}
+{% endif %}
+
+{% if LACES_ADDTHIS is not defined %}
+    {% set LACES_ADDTHIS = False %}
+{% endif %}
+
+{% if LACES_SHARIFF is not defined %}
+    {% set LACES_SHARIFF = False %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}"{% if LACES_OPEN_GRAPH %} prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml"{% endif %}>
 <head>
     <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
     <!-- Using the latest rendering mode for IE -->
@@ -90,20 +115,20 @@
     {% endblock %}
 
     {# Open Graph tags #}
-    {% if USE_OPEN_GRAPH %}
+    {% if LACES_OPEN_GRAPH %}
     {% block opengraph %}
     <!-- Open Graph tags -->
-        {% if OPEN_GRAPH_FB_APP_ID %}
-            <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}"/>
+        {% if LACES_OPEN_GRAPH.fb_app_id %}
+            <meta property="fb:app_id" content="{{ LACES_OPEN_GRAPH.fb_app_id }}"/>
         {% endif %}
         <meta property="og:site_name" content="{{ SITENAME }}" />
         <meta property="og:type" content="website"/>
         <meta property="og:title" content="{{ SITENAME }}"/>
         <meta property="og:url" content="{{ SITEURL }}"/>
         <meta property="og:description" content="{{ SITENAME }}"/>
-        {% if OPEN_GRAPH_IMAGE %}
+        {% if LACES_OPEN_GRAPH.image %}
             <meta property="og:image"
-                  content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}"/>
+                  content="{{ SITEURL }}/{{ LACES_OPEN_GRAPH.image }}"/>
         {% endif %}
     {% endblock %}
     {% endif %}
@@ -163,7 +188,7 @@
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css" type="text/css"/>
     
 
-    {% if SHARIFF %}
+    {% if LACES_SHARIFF %}
         <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/shariff/shariff.min.css" rel="stylesheet">
     {% endif %}
 
@@ -200,10 +225,17 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="{{ SITEURL }}/" class="navbar-brand">
-                {% if LACES_SITELOGO %}
-                <img src="{{ SITEURL }}/{{ LACES_SITELOGO.file }}" {% if LACES_SITELOGO.WIDTH %}width="{{ LACES_SITELOGO.width }}"{% endif %}/>
+                {% if LACES_NAVBAR_BRAND %}
+
+                {% if LACES_NAVBAR_BRAND.file %}
+                <img src="{{ SITEURL }}/{{ LACES_NAVBAR_BRAND.file }}" {% if LACES_NAVBAR_BRAND.width %}width="{{ LACES_NAVBAR_BRAND.width }}"{% endif %}/>
                 {% endif %}
-                {% if not LACES_HIDE_SITENAME %}{{ SITENAME }}{% endif %}
+
+                {% if LACES_NAVBAR_BRAND.icon %}<i class="fa fa-{{ LACES_NAVBAR_BRAND.icon }} fa-lg"></i>{% endif %}                <span class="icon-label">{{ LACES_NAVBAR_BRAND.title }}</span>
+               
+                {% else %}
+                <span class="icon-label">{{ SITENAME }}</span>
+                {% endif %}
             </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -229,7 +261,7 @@
             <ul class="nav navbar-nav navbar-right">
             {% if 'tipue_search' in PLUGINS %}
               <li><span>
-                <form class="navbar-search" action="{{ SEARCH_URL | default('/search.html') }}">
+                <form class="navbar-search" action="{{ LACES_SEARCH_URL | default('/search.html') }}">
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
@@ -242,14 +274,10 @@
 </div> <!-- /.navbar -->
 
 <!-- Banner START -->
-{% if LACES_BANNER %}
-
 {% if LACES_BANNER.all_pages %}
     {% include 'includes/banner.html' %}
 {% else %}
     {% block banner %}{% endblock %}
-{% endif %}
-
 {% endif %}
 <!-- Banner END -->
 

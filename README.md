@@ -163,27 +163,31 @@ Flag: `LACES_BOOTSTRAP_FLUID`
 
 If you'd like to use the fluid container layout from Bootstrap, set the flag `LACES_BOOTSTRAP_FLUID` to `True`.
 
-### Hiding the site name
+### Navbar brand
 
-Flag: `LACES_HIDE_SITENAME`
+Configuration variable: `LACES_NAVBAR_BRAND`
 
-By default Laces3 shows the value of the `SITENAME` Pelican variable. If you want to hide it (for example when showing a logo, see "Site logo") set the `LACES_HIDE_SITENAME` variable to `True`.
+By default Laces3 shows the at the beginning of the navigation bar a link to the first page with the value of the `SITENAME` variable, but you can override this behaviour through the `LACES_NAVBAR_BRAND` variable.
 
-### Site logo
+You may provide a logo for your site through the `file` key, while the `width` value forces the width of the resulting `<img>` tag.
 
-Configuration variable: `LACES_SITELOGO`
-Configuration keys: `file`, `width`
+You can also provide an icon providing the Font Awesome icon name with the `icon` key. The text of the link is the content of the `title` key. If you want to use here the site name just initialize `title` with the `SITENAME` variable
 
-You can provide a logo for your site through `LACES_SITELOGO`. The `file` configuration value contains the image file, while the `width` value forces the width of the resulting `<img>` tag.
-
-By default the value of the `SITENAME` Pelican variable will be shown as well. It's possible to hide it using the `LACES_HIDE_SITENAME` flag.
-
-Example:
+Example of link with home icon and site name:
 
 ``` python
 LACES_SITELOGO = {
-    'FILE': 'images/my_site_logo.png',
-    'WIDTH': 100,
+    'title': SITENAME,
+    'icon': 'home',
+}
+```
+
+Example of link with just a custom 100px image
+
+``` python
+LACES_SITELOGO = {
+    'file': 'images/my_site_logo.png',
+    'width': 100,
 }
 ```
 
@@ -217,7 +221,7 @@ You may configure the text of the related post secion header setting the `LACES_
 ### Series
 
 Configuration variable: `LACES_SERIES`
-Configuration keys: `header`, `display_on_sidebar`, `display_on_footer`
+Configuration keys: `header`, `display_on_footer`
 
 This theme supports the [series plugin](https://github.com/getpelican/pelican-plugins/tree/master/series).
 
@@ -301,6 +305,7 @@ If you want to show a sidebar just initialize the `LACES_SIDEBAR` variable. Its 
 * `categories` - Shows the site categories
 * `series` - Shows the link to the next and the previous article in the same series (requires the [series plugin](https://github.com/getpelican/pelican-plugins/tree/master/series))
 * `social` - Shows your social links using the Pelican `SOCIAL` variable. See below for a configuration example
+* `images` - A list of images which will be shown in the sidebar (e.g. `images: ['/path/to/image1.png', '/path/to/image2.png']`)
 
 The `recent`, if set, shows a list of recent posts. The `recent_num` controls the amount of posts shown, if not set defaults to 5.
 
@@ -350,27 +355,130 @@ To show Disqus comment counts on the index page, set the `display_counts` key to
 ### Content license
 
 Configuration variables: `LACES_LICENSE`
-Configuration keys: `cc_short`
+Configuration keys: `cc_short`, `cc_derivatives`, `cc_commercial`, `cc_attr_markup`, `custom`
 
 You can declare a license for the content of your site. It will appear in the site's footer.
 
+If you want to use a [Creative Commons license](http://creativecommons.org) you can set the `cc_short` key using the following abbreviated names:
 
+* `'CC-BY'` (require attribution)
+* `'CC-BY-SA'` (require ShareAlike)
+* `'CC-BY-ND'` (NoDerivatives)
+* `'CC-BY-NC'` (require attribution, no commercial reuse)
+* `'CC-BY-NC-SA'` (require ShareAlike, no commercial reuse)
+* `'CC-BY-NC-ND'` (NoDerivatives, no commercial reuse).
 
+Alternatively, choose the licence by features setting the following keys:
 
+* `cc_derivatives` - `'yes'` if permitted, `'no'` if not permitted, and `'ShareAlike'` if derivatives must be shared under the same terms
+* `cc_commercial` - `'yes'` if commercial reuse is permitted, and `'no'` otherwise.
 
-You can optionally declare a [Creative Commons license](http://creativecommons.org)  To enable, use one of the following two ways for configuration.
+You can include attribution markup in the license mark by setting `cc_attr_markup` to `True`.
 
-* To choose the license by name, set `CC_LICENSE` to the common abbreviated name of the license: `"CC-BY"` (require attribution), `"CC-BY-SA"` (require ShareAlike), `"CC-BY-ND"` (NoDerivatives) , `"CC-BY-NC"` (require attribution, no commercial reuse), `"CC-BY-NC-SA"` (require ShareAlike, no commercial reuse), or `"CC-BY-NC-ND"` (NoDerivatives, no commercial reuse).
-* Alternatively, choose the licence by features:
-    * `CC_LICENSE_DERIVATIVES` - `"yes"` if permitted, `"no"` if not permitted, and `"ShareAlike"` if derivatives must be shared under the same terms.
-    * `CC_LICENSE_COMMERCIAL` - `"yes"` if commercial reuse is permitted, and `"no"` otherwise.
-* Optionally, you can include attribution markup in the license mark by setting `CC_ATTR_MARKUP` to _True_.
+If you want to use another license type, you can instead set the `custom` key to a license string that will be showed at the bottom of every page. Raw HTML is allowed.
 
-The license choice mirrors the [Creative Commons License Chooser](http://creativecommons.org/choose/). Source for the macro that renders the mark is at http://github.com/hlapp/cc-tools.
-
-Alternatively, if you want to use another license type, you can instead use the `CUSTOM_LICENSE` property to set a license string that will be showed at the bottom of every page.
-Raw HTML is allowed.
-As `CC_*` variables take precedence, be sure to avoid `CC_*` variables when using `CUSTOM_LICENSE`.
+As `cc_*` keys take precedence, be sure to avoid them when setting `custom`.
 
 For example, if you want to use the WTFPL license, you can set:
-`CUSTOM_LICENSE='Unless otherwise stated, all articles are published under the <a href="http://www.wtfpl.net/about/">WTFPL</a> license.'`
+
+``` python
+LACES_LICENSE = {
+    'custom': 'Unless otherwise stated, all articles are published under the <a href="http://www.wtfpl.net/about/">WTFPL</a> license.'
+}
+```
+
+### GitHub
+
+Configuration variables: `LACES_GITHUB`
+Configuration keys: `user`, `repo_count`, `skip_fork`, `show_user_link`
+
+The theme can show your most recently active GitHub repos in the sidebar. To enable, set the a `LACES_GITHUB` variable and put your GitHub user into the `user` key.
+
+Appearance and behaviour can be controlled using the following variables:
+
+* `repo_count` - The number of repositories to show, defaults to 5
+* `skip_fork` - Skip forked repositories, defaults to `True`
+* `show_user_link` - Shows a link to the GitHub user page
+
+### Facebook Open Graph
+
+Configuration variables: `LACES_OPEN_GRAPH`
+Configuration keys: `disable_meta`, `fb_app_id`, `image`
+
+In order to make the Facebook like button and other social sharing options work better, the template contains Open Graph metatags like `<meta property="og:type" content="article"/>`. You can disable them by setting the `disable_meta` key to `False`.
+
+You can use the `fb_app_id` key to provide a Facebook _app id_.
+
+You can also provide a default image that will be passed as an Open Graph tag  by setting the `image` key to a relative file path, which will be prefixed by your site's base url. Optionally, you can override this default image on a per article and per page basis, by setting the `og_image` variable in an article or page.
+
+### Twitter Cards
+
+Configuration variables: `LACES_TWITTER_CARDS`
+
+This theme supports [Summary Twitter Cards](https://dev.twitter.com/docs/cards/types/summary-card). To activate the necessary tags set `LACES_TWITTER_CARDS` to `True`. Because Twitter Cards also use Open Graph tags to identify some of the necessary metadata, `LACES_OPEN_GRAPH` must not be disabled (it is enabled by default).
+
+If you initialize the optional Pelican variable `TWITTER_USERNAME` it will be used to set the Twitter username for the site and for the content creator.
+
+The same image options for Open Graph (see above) can be used for setting images that appear on Twitter Cards. So if you have set the `LACES_OPEN_GRAPH['image']` key and optionally `og_image` for articles and/or pages, you're good to go for Twitter Cards as well.
+
+### Twitter Timeline
+
+Configuration variables: `LACES_TWITTER_WIDGET_ID`
+
+This theme can show your twitter timeline in the sidebar. To enable, provide the Pelican `TWITTER_USERNAME` variable and put your Twitter Widget ID into the `LACES_TWITTER_WIDGET_ID` variable.
+
+To get a Twitter Widget ID go to: https://twitter.com/settings/widgets and select `Create new`. You'll find the ID under the html or in the site url: `https://twitter.com/settings/widgets/<TWITTER_WIDGET_ID>/edit`
+
+### AddThis
+
+Configuration variables: `LACES_ADDTHIS`
+Configuration keys: `profile`, `addressbar`
+
+You can enable sharing buttons through [AddThis](http://www.addthis.com/) by setting the `profile` key of the `LACES_ADDTHIS` variable to your AddThis profile-id. This will display a **Tweet**, **Facebook Like** and **Google +1** button under each post.
+
+AddThis automatically adds a short hashtag to the end of your URLs. This lets you reveal how often visitors copy your URL from their address bar to share. Example of AddThis URL: `http://domain.com/page.html#UF0983`. This function can be disabled by setting the `addressbar` key to `False`.
+
+All social buttons are enabled by default. You can disable them by setting the following keys to `False`: `facebook`, `twitter`, `googleplus`.
+
+### Shariff
+
+Configuration variables: `LACES_SHARIFF`
+Configuration keys: `backend_url`, `lang`, `orientation`, `services`, `theme`, `twitter_via`
+
+You may use [Shariff](https://github.com/heiseonline/shariff) by setting `LACES_SHARIFF = True`. This will display the privacy enabled social media buttons developed by [heiseonline](https://github.com/heiseonline).
+
+By default, `data-url` is set to the URL of the current article.
+
+To customize the social media buttons, set the following keys
+
+* `backend_url` (see [Shariff Backends](https://github.com/heiseonline/shariff#backends))
+* `lang` (`de` (default), `en` or `fr`)
+* `orientation` (`horizontal` (default) or `vertical`)
+* `services` (default: `[&quot;facebook&quot;,&quot;googleplus&quot;]`)
+* `theme` (`standard` or `gray`)
+* `twitter_via` (`True`/`False`, uses `TWITTER_USERNAME`)
+
+For a detailed description of each setting, refer to [data attributes](https://github.com/heiseonline/shariff#options-data-attributes) description at the [Shariff README](https://github.com/heiseonline/shariff).
+
+### Tipue Search
+
+Configuration variables: `LACES_SEARCH_URL`
+
+This theme has support for the
+[Tipue Search plugin](https://github.com/getpelican/pelican-plugins/tree/master/tipue_search).
+
+To use it enable the plugin, and the theme will add a search box on the right side of the menu. Then add `'search'` to the Pelican `DIRECT_TEMPLATES` variable in your `pelicanconf.py`. For example:
+
+``` python
+DIRECT_TEMPLATES = ('index', 'categories', 'authors', 'archives', 'search').
+```
+
+By default, the Tipue search page is configured at `/search.html`, but you can override that with the `LACES_SEARCH_URL` setting, which comes in handy if you have fancy rewrite rules in your Apache or Nginx configuration.
+
+### Footer
+
+The footer will display a copyright message using the AUTHOR variable and the year of the latest post. If a content license mark is enabled (see `LACES_LICENSE`), that will be shown as well.
+
+## Live example
+
+[This is my website](http://lgiordani.com)

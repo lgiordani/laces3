@@ -15,9 +15,9 @@
     {% endif %}
 {% endblock %}
 {% block opengraph %}
-    {% if USE_OPEN_GRAPH %}
-        {% if OPEN_GRAPH_FB_APP_ID %}
-            <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}"/>
+    {% if LACES_OPEN_GRAPH %}
+        {% if LACES_OPEN_GRAPH.FB_APP_ID %}
+            <meta property="fb:app_id" content="{{ LACES_OPEN_GRAPH.FB_APP_ID }}"/>
         {% endif %}
         <meta property="og:site_name" content="{{ SITENAME }}" />
         <meta property="og:type" content="article"/>
@@ -39,9 +39,9 @@
         {% if article.og_image %}
             <meta property="og:image"
                   content="{{ SITEURL }}/{{ article.og_image }}"/>
-        {% elif OPEN_GRAPH_IMAGE %}
+                  {% elif LACES_OPEN_GRAPH.IMAGE %}
             <meta property="og:image"
-                  content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}"/>
+            content="{{ SITEURL }}/{{ LACES_OPEN_GRAPH.IMAGE }}"/>
         {% endif %}
     {% endif %}
 {% endblock %}
@@ -102,22 +102,30 @@
             {% endif %}
 
             {% include 'includes/addthis.html' %}
-            {% include 'includes/shariff.html' %}
-            {% include 'includes/comments.html' %}
+
+            {% if LACES_SHARIFF %}
+                {% include 'includes/shariff.html' %}
+            {% endif %}
+
+            {% if LACES_ADDTHIS.profile %}
+                {% include 'includes/comments.html' %}
+            {% endif %}                
         </article>
     </section>
 
 {% endblock %}
 
 {% block scripts %}
-{% if ADDTHIS_PROFILE %}
-    {% if ADDTHIS_DATA_TRACK_ADDRESSBAR|default(true) %}
+
+{% if LACES_ADDTHIS.profile %}
+    {% if LACES_ADDTHIS.addressbar|default(true) %}
         <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
     {% endif %}
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{ ADDTHIS_PROFILE }}"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{ LACES_ADDTHIS.profile }}"></script>
 {% endif %}
-{% if SHARIFF|default(false) %}
-    <!-- add shariff support -->
+
+{% if LACES_SHARIFF %}
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/shariff.min.js"></script>
 {% endif %}
+
 {% endblock %}

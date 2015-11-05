@@ -12,8 +12,8 @@
     {% endif %}
 {% endblock %}
 {% block opengraph %}
-    {% if OPEN_GRAPH_FB_APP_ID %}
-        <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}"/>
+    {% if LACES_OPEN_GRAPH.fb_app_id %}
+        <meta property="fb:app_id" content="{{ LACES_OPEN_GRAPH.fb_app_id }}"/>
     {% endif %}
     <meta property="og:site_name" content="{{ SITENAME }}" />
     <meta property="og:type" content="article"/>
@@ -23,9 +23,9 @@
     {% if page.og_image %}
         <meta property="og:image"
               content="{{ SITEURL }}/{{ page.og_image }}"/>
-    {% elif OPEN_GRAPH_IMAGE %}
+    {% elif LACES_OPEN_GRAPH.image %}
         <meta property="og:image"
-              content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}"/>
+              content="{{ SITEURL }}/{{ LACES_OPEN_GRAPH.image }}"/>
     {% endif %}
 {% endblock %}
 
