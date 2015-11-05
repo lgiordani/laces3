@@ -1,10 +1,8 @@
-{% if LACES_GITHUB.user %}
-    <li class="list-group-item"><h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
-        <div id="gh_repos">
-            <p class="list-group-item">Status updating...</p>
-        </div>
-        {% if LACES_GITHUB.show_user_link %}
-            <a href="https://github.com/{{ LACES_GITHUB.user }}">@{{ LACES_GITHUB.user }}</a> on GitHub
-        {% endif %}
-    </li>
-{% endif %}
+<li class="list-group-item"><h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+    <div id="gh_repos">
+        <p class="list-group-item">Status updating...</p>
+    </div>
+    {% if LACES_GITHUB.show_user_link %}
+        <a href="https://github.com/{{ LACES_GITHUB.user }}">@{{ LACES_GITHUB.user }}</a> on GitHub
+    {% endif %}
+</li>

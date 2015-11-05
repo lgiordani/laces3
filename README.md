@@ -204,6 +204,13 @@ If you just want to activate breadcrumbs with the default settings set
 LACES_BREADCRUMBS = True
 ```
 
+### Archives
+
+Configuration variable: `LACES_ARCHIVES`
+Configuration keys: `url`, `text`
+
+By default Laces3 shows the archives link to `/archives` with the `Archives` text. You may customize both values through the `url` and `text` keys of the `LACES_ARCHIVES` variable.
+
 ### Navbar
 
 Configuration flag: `LACES_BOOTSTRAP_NAVBAR_INVERSE`
@@ -233,7 +240,11 @@ You may display information on the series just under the article title setting t
 
 ### IPython Notebook support
 
+Configuration variable: `LACES_NOTEBOOK_MATH_CENTER`
+
 This theme supports including IPython notebooks through the [Liquid Tags plugin](https://github.com/getpelican/pelican-plugins/tree/master/liquid_tags). If you enable the plugin, the theme will automatically include the right CSS/JS to make the notebooks work.
+
+Set `LACES_NOTEBOOK_MATH_CENTER` to `True` to center math equations.
 
 ### Favicon
 
@@ -411,21 +422,18 @@ You can use the `fb_app_id` key to provide a Facebook _app id_.
 
 You can also provide a default image that will be passed as an Open Graph tag  by setting the `image` key to a relative file path, which will be prefixed by your site's base url. Optionally, you can override this default image on a per article and per page basis, by setting the `og_image` variable in an article or page.
 
-### Twitter Cards
+### Twitter Cards and Timeline
 
-Configuration variables: `LACES_TWITTER_CARDS`
+Configuration variables: `LACES_TWITTER`
+Configuration keys: `cards`, `widget_id`, `tweet_limit`
 
-This theme supports [Summary Twitter Cards](https://dev.twitter.com/docs/cards/types/summary-card). To activate the necessary tags set `LACES_TWITTER_CARDS` to `True`. Because Twitter Cards also use Open Graph tags to identify some of the necessary metadata, `LACES_OPEN_GRAPH` must not be disabled (it is enabled by default).
+This theme supports [Summary Twitter Cards](https://dev.twitter.com/docs/cards/types/summary-card). To activate the necessary tags set the `cards` key of `LACES_TWITTER_CARDS` to `True`. Because Twitter Cards also use Open Graph tags to identify some of the necessary metadata, `LACES_OPEN_GRAPH` must not be disabled (it is enabled by default).
 
 If you initialize the optional Pelican variable `TWITTER_USERNAME` it will be used to set the Twitter username for the site and for the content creator.
 
 The same image options for Open Graph (see above) can be used for setting images that appear on Twitter Cards. So if you have set the `LACES_OPEN_GRAPH['image']` key and optionally `og_image` for articles and/or pages, you're good to go for Twitter Cards as well.
 
-### Twitter Timeline
-
-Configuration variables: `LACES_TWITTER_WIDGET_ID`
-
-This theme can show your twitter timeline in the sidebar. To enable, provide the Pelican `TWITTER_USERNAME` variable and put your Twitter Widget ID into the `LACES_TWITTER_WIDGET_ID` variable.
+This theme can also show your twitter timeline in the sidebar. To enable, provide the Pelican `TWITTER_USERNAME` variable and put your Twitter Widget ID into the `LACES_TWITTER` variable with the `widget_id` key. You can limit the number of tweets shown by this widget setting the `tweet_limit` key to how many tweets you want to see.
 
 To get a Twitter Widget ID go to: https://twitter.com/settings/widgets and select `Create new`. You'll find the ID under the html or in the site url: `https://twitter.com/settings/widgets/<TWITTER_WIDGET_ID>/edit`
 
@@ -459,6 +467,27 @@ To customize the social media buttons, set the following keys
 * `twitter_via` (`True`/`False`, uses `TWITTER_USERNAME`)
 
 For a detailed description of each setting, refer to [data attributes](https://github.com/heiseonline/shariff#options-data-attributes) description at the [Shariff README](https://github.com/heiseonline/shariff).
+
+### Cookie Consent (EU Cookie Law)
+
+Configuration variables: `LACES_COOKIECONSENT`
+Configuration keys: `text`, `more_info_text`, `more_info_url`, `dismiss`, `dismiss_text`, `theme`
+
+Since 2011 websites based in the EU are required to ask visitors for consent to use web cookies. This is especially relevant if you are using web analytics like Piwik or Google Analytics. This feature uses [Cookie Consent](https://github.com/silktide/cookieconsent2) by [Silktide](https://github.com/silktide).
+
+If deafult values are good for you, you may enable the popup just setting
+
+``` python
+LACES_COOKIECONSENT = True
+```
+
+The text shown by the popup is the content of the `text` key and defaults to `'This website uses cookies to ensure you get the best experience on our website.'`
+
+The link to get more information about the matter is by default `http://cookielawinfo.com/about/` with text `'More info'`. You may override both values through the `more_info_url` and `more_info_text` keys.
+
+The dismiss button text defaults to `'Got it!'` and can be changes with the `dismiss_text` key.
+
+Cookie Consent 2 can be themed, you can see available themes at https://silktide.com/tools/cookie-consent/download/. Theme names are in the form `(dark|light)-(bottom|floating|top)` (e.g. `dark-bottom` or `light-floating`). Put the theme name into the `theme` key, default is `dark-top`.
 
 ### Tipue Search
 

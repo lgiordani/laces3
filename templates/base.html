@@ -54,6 +54,10 @@
     {% set LACES_BREADCRUMBS = False %}
 {% endif %}
 
+{% if LACES_ARCHIVES is not defined %}
+    {% set LACES_ARCHIVES = False %}
+{% endif %}
+
 {% if LACES_BANNER is not defined %}
     {% set LACES_BANNER = False %}
 {% endif %}
@@ -68,6 +72,10 @@
 
 {% if LACES_GITHUB is not defined %}
     {% set LACES_GITHUB = False %}
+{% endif %}
+
+{% if LACES_TWITTER is not defined %}
+    {% set LACES_TWITTER = False %}
 {% endif %}
 
 {% if LACES_OPEN_GRAPH is not defined %}
@@ -133,8 +141,9 @@
     {% endblock %}
     {% endif %}
 
-    {# Twitter Cards tags #}
+    {% if LACES_TWITTER.cards and LACES_OPEN_GRAPH %}
     {% include 'includes/twitter_cards.html' %}
+    {% endif %}
 
     <!-- Bootstrap and Bootswatch CSS START -->
     {% if LACES_CONTENT_BOOTSWATCH_THEME %}
@@ -244,7 +253,7 @@
                     <li><a href="{{ link }}">{{ title }}</a></li>
                 {% endfor %}
                 {% if DISPLAY_PAGES_ON_MENU %}
-                    {% for p in PAGES %}
+                    {% for p in pages %}
                          <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">
                              {{ p.menulabel|default(p.title) }}
                           </a></li>
@@ -266,7 +275,7 @@
                 </form></span>
               </li>
             {% endif %}
-              <li><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="{{ SITEURL }}/{{ LACES_ARCHIVES.url | default('archives') }}"><i class="fa fa-th-list"></i><span class="icon-label">{{ LACES_ARCHIVES.text | default('Archives') }}</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -343,6 +352,10 @@
 {% include 'includes/disqus_script.html' %}
 {% include 'includes/ga.html' %}
 {% include 'includes/piwik.html' %}
+
+{% if LACES_COOKIECONSENT %}
+    {% include 'includes/cookieconsent.html' %}
+{% endif %}
 
 {% block scripts %}{% endblock %}
 </body>

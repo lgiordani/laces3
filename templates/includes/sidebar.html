@@ -1,7 +1,7 @@
 <section class="well well-sm">
     <ul class="list-group list-group-flush">
         {% if 'social' in LACES_SIDEBAR.fields and SOCIAL %}
-            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+            <li class="list-group-item"><h4><i class="fa fa-cloud fa-lg"></i><span class="icon-label">Social</span></h4>
               <ul class="list-group" id="social">
                 {% for s in SOCIAL %}
                     {% if s[2] %}
@@ -9,7 +9,7 @@
                     {% else %}
                         {% set name_sanitized = s[0]|lower|replace('+','-plus')|replace(' ','-') %}
                     {% endif %}
-                    {% if name_sanitized in ['flickr', 'spotify', 'stack-overflow', 'weibo'] %}
+                    {% if name_sanitized in ['500px', 'instagram', 'flickr', 'spotify', 'stack-overflow', 'weibo'] %}
                         {% set iconattributes = '"fa fa-' ~ name_sanitized ~ ' fa-lg"' %}
                     {% else %}
                         {% set iconattributes = '"fa fa-' ~ name_sanitized ~ '-square fa-lg"' %}
@@ -95,8 +95,14 @@
             {% endif %}
         {% endif %}
 
+        {% if LACES_GITHUB.user %}
         {% include 'includes/github.html' %}
+        {% endif %}
+
+        {% if TWITTER_USERNAME and LACES_TWITTER.widget_id %}
         {% include 'includes/twitter_timeline.html' %}
+        {% endif %}
+
         {% include 'includes/links.html' %}
         {% include 'includes/sidebar-images.html' %}
     </ul>
