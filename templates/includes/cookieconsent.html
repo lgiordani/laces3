@@ -1,0 +1,15 @@
+<!-- Begin Cookie Consent -->
+<script>
+    window.cookieconsent_options = {
+        
+        message: "{{ LACES_COOKIECONSENT.text | default('This website uses cookies to ensure you get the best experience on our website.') }}",
+        learnMore: "{{ LACES_COOKIECONSENT.more_info_text | default('More info') }}",
+        link: "{{ LACES_COOKIECONSENT.more_info_url | default('http://cookielawinfo.com/about/') }}",
+        {% if LACES_COOKIECONSENT.dismiss_text %}
+        dismiss: '{{ LACES_COOKIECONSENT.dismiss_text }}',
+        {% endif %}
+        theme: '{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/cookieconsent2/{{ LACES_COOKIECONSENT.theme | default('dark-top') }}.css',
+    };
+</script>
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/cookieconsent.min.js"></script>
+<!-- End Cookie Consent -->
