@@ -20,7 +20,7 @@
             </li>
         {% endif %}
 
-        {% if LACES_SIDEBAR.feeds %}
+        {% if 'feeds' in LACES_SIDEBAR.fields %}
             <li class="list-group-item"><h4><i class="fa fa-feed fa-lg"></i><span class="icon-label">Feeds</span></h4>
                 <ul class="list-group">
                     {% if FEED_ALL_ATOM %}
