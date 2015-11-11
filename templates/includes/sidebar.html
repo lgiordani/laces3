@@ -32,7 +32,7 @@
                     {% endif %}
 
                     {% if category and CATEGORY_FEED_ATOM %}
-                        <li class="list-group-item"><a href="{{ SITEURL }}/{{ TAG_FEED_ATOM|format(category.slug) }}">{{ category }}</a></li>
+                        <li class="list-group-item"><a href="{{ SITEURL }}/{{ CATEGORY_FEED_ATOM|format(category.slug) }}">{{ category }}</a></li>
                     {% endif %}
                 </ul>
             </li>
