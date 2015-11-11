@@ -68,18 +68,18 @@
 {% endblock %}
 
 {% block content %}
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="{{ SITEURL }}/{{ article.url }}"
-                       rel="bookmark"
-                       title="Permalink to {{ article.title|striptags }}">
-                        {{ article.title }}
-                    </a>
-                </h1>
-            </header>
+    <article>
+        <header class="page-header">
+            <h1>
+                <a href="{{ SITEURL }}/{{ article.url }}"
+                   rel="bookmark"
+                   title="Permalink to {{ article.title|striptags }}">
+                    {{ article.title }}
+                </a>
+            </h1>
+        </header>
 
+        <section id="content">
             {% if LACES_ARTICLE_INFO_PAGE %}
             <div class="entry-content">
                 <div class="panel">
@@ -110,8 +110,8 @@
             {% if LACES_ADDTHIS.profile %}
                 {% include 'includes/comments.html' %}
             {% endif %}                
-        </article>
-    </section>
+        </section>
+    </article>
 
 {% endblock %}
 

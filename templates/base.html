@@ -237,7 +237,7 @@
                 {% if LACES_NAVBAR_BRAND %}
 
                 {% if LACES_NAVBAR_BRAND.file %}
-                <img src="{{ SITEURL }}/{{ LACES_NAVBAR_BRAND.file }}" {% if LACES_NAVBAR_BRAND.width %}width="{{ LACES_NAVBAR_BRAND.width }}"{% endif %}/>
+                <img src="{{ SITEURL }}/{{ LACES_NAVBAR_BRAND.file }}" {% if LACES_NAVBAR_BRAND.width %}width="{{ LACES_NAVBAR_BRAND.width }}"{% endif %} alt="site-logo"/>
                 {% endif %}
 
                 {% if LACES_NAVBAR_BRAND.icon %}<i class="fa fa-{{ LACES_NAVBAR_BRAND.icon }} fa-lg"></i>{% endif %}                <span class="icon-label">{{ LACES_NAVBAR_BRAND.title }}</span>
@@ -268,14 +268,16 @@
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            {% if 'tipue_search' in PLUGINS %}
-              <li><span>
-                <form class="navbar-search" action="{{ LACES_SEARCH_URL | default('/search.html') }}">
-                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
-                </form></span>
-              </li>
-            {% endif %}
-              <li><a href="{{ SITEURL }}/{{ LACES_ARCHIVES.url | default('archives') }}"><i class="fa fa-th-list"></i><span class="icon-label">{{ LACES_ARCHIVES.text | default('Archives') }}</span></a></li>
+                {% if 'tipue_search' in PLUGINS %}
+                <li>
+                    <div>
+                        <form class="navbar-search" action="{{ LACES_SEARCH_URL | default('/search.html') }}">
+                        <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                        </form>
+                    </div>
+                </li>
+                {% endif %}
+                <li><a href="{{ SITEURL }}/{{ LACES_ARCHIVES.url | default('archives') }}"><i class="fa fa-th-list"></i><span class="icon-label">{{ LACES_ARCHIVES.text | default('Archives') }}</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
