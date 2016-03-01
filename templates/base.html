@@ -106,14 +106,14 @@
     <!-- Liquid tags START -->
     
     {# Favicons are a touchy subject. For reasoning for the following code, see: http://stackoverflow.com/a/23851464/872397 #}
-    {% if FAVICON %}
-    <link href="{{ SITEURL }}/{{ FAVICON }}" rel="icon">
+    {% if LACES_FAVICON %}
+    <link href="{{ SITEURL }}/{{ LACES_FAVICON }}" rel="icon">
     {% endif %}
-    {% if FAVICON_IE %}
-    <!--[if IE]><link rel="shortcut icon" href="{{ SITEURL }}/{{ FAVICON_IE }}"><![endif]-->
+    {% if LACES_FAVICON_IE %}
+    <!--[if IE]><link rel="shortcut icon" href="{{ SITEURL }}/{{ LACES_FAVICON_IE }}"><![endif]-->
     {% endif %}
-    {% if TOUCHICON %}
-    <link rel="apple-touch-icon" href="{{ SITEURL }}/{{ TOUCHICON }}">
+    {% if LACES_TOUCHICON %}
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/{{ LACES_TOUCHICON }}">
     {% endif %}
 
     {% block canonical_rel %}{% endblock %}
