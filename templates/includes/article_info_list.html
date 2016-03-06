@@ -1,0 +1,71 @@
+<footer class="post-info">
+
+    {% if _laces_in_article_list and 'author' in LACES_ARTICLE_INFO_LIST.fields %}
+
+        {% if article.author %}
+            <span class="label label-default">By</span>
+            <a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a>
+        {% endif %}
+
+        {% if (_laces_in_article_list and 'date' in LACES_ARTICLE_INFO_LIST.fields) %}
+            <span class="label label-default">On</span>
+            <span class="published">
+                <time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
+            </span>
+        {% endif %}
+
+    {% elif (_laces_in_article_list and 'date' in LACES_ARTICLE_INFO_LIST.fields) %}
+        <span class="label label-default">Date</span>
+        <span class="published">
+            <time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
+        </span>
+    {% endif %}
+
+
+    {% if (_laces_in_article_list and 'modified' in LACES_ARTICLE_INFO_LIST.fields) %}
+
+        {% if article.modified %}
+            <span class="label label-default">Modified</span>
+            <span class="modified">
+                <time datetime="{{ article.modified.isoformat() }}"> {{ article.locale_modified }}</time>
+            </span>
+        {% endif %}
+
+    {% endif %}
+
+
+    {% if (_laces_in_article_list and 'series' in LACES_ARTICLE_INFO_LIST.fields) %}
+
+        {# This is due to a limitation in Pelican #}
+        {% if LACES_SERIES is not defined %}
+            {% set LACES_SERIES = False %}
+        {% endif %}
+
+        {% if article.series %}
+            <span class="label label-default">Series</span>
+            Part {{ article.series.index}} of {{ article.series.name }}
+        {% endif %}
+
+    {% endif %}
+
+
+    {% if (_laces_in_article_list and 'category' in LACES_ARTICLE_INFO_LIST.fields) %}
+
+        <span class="label label-default">Category</span>
+        <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+
+    {% endif %}
+
+    
+    {% if (_laces_in_article_list and 'tags' in LACES_ARTICLE_INFO_LIST.fields) %}
+
+        {% if article.tags %}
+        {% include 'includes/taglist.html' %}
+        {% endif %}
+    
+    {% endif %}
+
+
+    {% import 'includes/translations.html' as translations with context %}
+    {{ translations.translations_for(article) }}
+</footer><!-- /.post-info -->
