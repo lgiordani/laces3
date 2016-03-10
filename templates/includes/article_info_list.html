@@ -59,6 +59,7 @@
     
     {% if (_laces_in_article_list and 'tags' in LACES_ARTICLE_INFO_LIST.fields) %}
 
+        <span class="label label-default">Tags</span>
         {% if article.tags %}
         {% include 'includes/taglist.html' %}
         {% endif %}
