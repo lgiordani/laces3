@@ -11,10 +11,19 @@
                         {% endwith %}
                     </div>
                 {% endif %}
-                <div class="summary">{{ article.summary }}
+                <div class="summary">
+                    {% if article.summary %}
+                    {{ article.summary }}
+                    {% elif article.truncate %}
+                    {% set trunc = article.truncate|int %}
+                    {{ article.content | truncate(trunc, end='') }}
+                    {% else %}
+                    {{ article.content | truncate(1024, end='') }}
+                    {% endif %}
+
                     {% include 'includes/comment_count.html' %}
                     {% if SUMMARY_MAX_LENGTH != None %}
-                    <a class="btn btn-default btn-xs" href="{{ SITEURL }}/{{ article.url }}">more ...</a>
+                    <a href="{{ SITEURL }}/{{ article.url }}"><strong>... more</strong></a>
                     {% endif %}                        
                 </div>
             </article>
